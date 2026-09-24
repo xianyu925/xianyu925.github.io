@@ -1,0 +1,14 @@
+<%
+const current = is_home() ? 'home' : (page.layout === 'about' ? 'about' : ((is_archive() || is_category()) ? 'archive' : ''));
+%>
+<header class="site-header">
+  <nav class="nav wrap" aria-label="主导航">
+    <a class="brand" href="<%- url_for('/') %>"><span class="brand-mark" aria-hidden="true"><span></span></span><%= config.title %></a>
+    <div class="nav-links">
+      <a href="<%- url_for('/') %>"<%- current === 'home' ? ' aria-current="page"' : '' %>>首页</a>
+      <a href="<%- url_for('/archive/') %>"<%- current === 'archive' ? ' aria-current="page"' : '' %>>归档</a>
+      <a href="<%- url_for('/about/') %>"<%- current === 'about' ? ' aria-current="page"' : '' %>>关于</a>
+      <button class="theme-toggle" data-theme-toggle aria-label="切换显示模式">☾</button>
+    </div>
+  </nav>
+</header>
