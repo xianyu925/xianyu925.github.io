@@ -1,0 +1,23 @@
+<%
+const posts = page.posts || site.posts;
+const years = {};
+posts.sort('date', -1).each(function(post) {
+  const year = date(post.date, 'YYYY');
+  if (!years[year]) years[year] = [];
+  years[year].push(post);
+});
+%>
+<% Object.keys(years).sort(function(a, b) { return b - a; }).forEach(function(year) { %>
+  <div class="archive-group">
+    <div class="archive-year"><%= year %></div>
+    <div class="archive-items">
+      <% years[year].forEach(function(post) { %>
+        <div class="archive-item">
+          <time datetime="<%= date_xml(post.date) %>"><%= date(post.date, 'MM · DD') %></time>
+          <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+          <small><%= post.categories && post.categories.length ? post.categories.first().name : '' %></small>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+<% }) %>
